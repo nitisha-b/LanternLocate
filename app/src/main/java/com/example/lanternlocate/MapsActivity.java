@@ -6,14 +6,19 @@ import androidx.fragment.app.FragmentActivity;
 import android.content.Context;
 import android.location.Location;
 import android.os.Bundle;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -31,6 +36,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Location currentLocation;
     private double currentLat;
     private double currentLng;
+    private boolean requestingLocationUpdates= true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,10 +84,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             LatLng brynMawr = new LatLng( currentLat, currentLng );
 
-                            mMap.addMarker(new MarkerOptions().position(brynMawr).title("Marker in Bryn Mawr"));
+                            //mMap.addMarker(new MarkerOptions().position(brynMawr).title("Marker in Bryn Mawr"));
+
+                             mMap.addMarker(new MarkerOptions().position(brynMawr)
+                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
 
                             float zoomLevel = 16.0f;
-                            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(brynMawr, zoomLevel));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(brynMawr, zoomLevel));
 
                             Log.i("FARYAL1", Double.toString(currentLat));
                             Log.i("FARYAL1", Double.toString(currentLng));
@@ -108,10 +117,22 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Log.i("FARYAL2", Double.toString(currentLat));
         Log.i("FARYAL2", Double.toString(currentLng));
 
-
-
-
     }
+
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        if (requestingLocationUpdates) {
+//            startLocationUpdates();
+//        }
+//    }
+//
+//    private void startLocationUpdates() {
+//        LocationRequest newRequest =
+//        fusedLocationClient.requestLocationUpdates(locationRequest,
+//                locationCallback,
+//                Looper.getMainLooper());
+//    }
 
 
 
