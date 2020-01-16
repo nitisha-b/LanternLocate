@@ -11,7 +11,9 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,7 +38,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Location currentLocation;
     private double currentLat;
     private double currentLng;
+    private Marker currentMarker;
     private boolean requestingLocationUpdates= true;
+    LocationCallback locationCallback;
+    LocationRequest locationRequest;
+    MarkerOptions marker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +54,57 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        marker = new MarkerOptions().position(new LatLng(0,0))
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
 
+               //        mMap.addMarker(marker);
+
+        locationRequest = LocationRequest.create();
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        locationRequest.setInterval(10);
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult != null) {
+
+                    // Logic to handle location object
+                    currentLat = locationResult.getLastLocation().getLatitude();
+                    currentLng = locationResult.getLastLocation().getLongitude();
+                    currentLocation = locationResult.getLastLocation();
+
+                    LatLng brynMawr = new LatLng( currentLat, currentLng );
+
+                    //mMap.addMarker(new MarkerOptions().position(brynMawr).title("Marker in Bryn Mawr"));
+                    if (currentMarker == null) {
+                        currentMarker = mMap.addMarker(marker);
+                    } else {
+                        currentMarker.setPosition(brynMawr);
+                    }
+
+                    float zoomLevel = 16.0f;
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(brynMawr, zoomLevel));
+
+//                    Log.i("FARYAL1", Double.toString(currentLat));
+//                    Log.i("FARYAL1", Double.toString(currentLng));
+
+//                    Log.i("Location", "Updated to: " + currentLocation.toString());
+                }
+
+                if (locationResult == null) {
+                    return;
+                }
+
+                for (Location location : locationResult.getLocations()) {
+
+                    // Update UI with location data
+                    marker.position(new LatLng(location.getLatitude(), location.getLongitude()));
+
+                }
+            };
+        };
 
     }
 
@@ -68,36 +124,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
-        fusedLocationClient.getLastLocation()
-                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-
-                            // Logic to handle location object
-                            currentLat = location.getLatitude();
-                            currentLng = location.getLongitude();
-
-                            LatLng brynMawr = new LatLng( currentLat, currentLng );
-
-                            //mMap.addMarker(new MarkerOptions().position(brynMawr).title("Marker in Bryn Mawr"));
-
-                             mMap.addMarker(new MarkerOptions().position(brynMawr)
-                                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-
-                            float zoomLevel = 16.0f;
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(brynMawr, zoomLevel));
-
-                            Log.i("FARYAL1", Double.toString(currentLat));
-                            Log.i("FARYAL1", Double.toString(currentLng));
-                        }
-                    }
-                });
-
+        //mMap.addMarker(marker);
 
         fusedLocationClient.getLastLocation().addOnFailureListener(this, new OnFailureListener() {
             @Override
@@ -111,28 +138,25 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-
         //LatLng brynMawr = new LatLng( 40.0289998, -75.3126857 );
 
-        Log.i("FARYAL2", Double.toString(currentLat));
-        Log.i("FARYAL2", Double.toString(currentLng));
+//        Log.i("FARYAL2", Double.toString(currentLat));
+//        Log.i("FARYAL2", Double.toString(currentLng));
 
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        if (requestingLocationUpdates) {
-//            startLocationUpdates();
-//        }
-//    }
-//
-//    private void startLocationUpdates() {
-//        LocationRequest newRequest =
-//        fusedLocationClient.requestLocationUpdates(locationRequest,
-//                locationCallback,
-//                Looper.getMainLooper());
-//    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (requestingLocationUpdates) {
+            startLocationUpdates();
+        }
+    }
+
+    private void startLocationUpdates() {
+        fusedLocationClient.requestLocationUpdates(locationRequest, locationCallback,
+                Looper.getMainLooper());
+    }
 
 
 
