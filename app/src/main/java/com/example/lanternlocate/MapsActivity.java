@@ -91,7 +91,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                             float zoomLevel = 16.0f;
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(brynMawr, zoomLevel));
-
                             Log.i("FARYAL1", Double.toString(currentLat));
                             Log.i("FARYAL1", Double.toString(currentLng));
                         }
