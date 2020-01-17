@@ -52,5 +52,5 @@
         android:layout_marginEnd="49dp"
         android:layout_marginRight="49dp"
         android:layout_marginBottom="132dp"
-        app:srcCompat="@drawable/sadOwl" />
+        app:srcCompat="@drawable/owl" />
 </RelativeLayout>
