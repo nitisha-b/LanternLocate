@@ -57,11 +57,10 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         marker = new MarkerOptions().position(new LatLng(0,0))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
 
-               //        mMap.addMarker(marker);
 
         locationRequest = LocationRequest.create();
         locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        locationRequest.setInterval(10);
+        locationRequest.setInterval(1);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
@@ -84,13 +83,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         currentMarker.setPosition(brynMawr);
                     }
 
-                    float zoomLevel = 16.0f;
+                    float zoomLevel = 17.0f;
                     mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(brynMawr, zoomLevel));
 
-//                    Log.i("FARYAL1", Double.toString(currentLat));
-//                    Log.i("FARYAL1", Double.toString(currentLng));
-
-//                    Log.i("Location", "Updated to: " + currentLocation.toString());
                 }
 
                 if (locationResult == null) {

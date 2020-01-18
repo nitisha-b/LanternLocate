@@ -1,11 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/map"
-    android:name="com.google.android.gms.maps.SupportMapFragment"
+    android:id="@+id/rel_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".MapsActivity" />
+    android:layout_height="match_parent">
 
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="375dp"
+        android:layout_height="600dp"
+
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="19dp"
+        android:layout_marginLeft="19dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="18dp"
+        android:layout_marginRight="18dp"
+        tools:context=".MapsActivity" />
+
+    <TextView
+        android:id="@+id/userLocationText"
+        android:layout_width="172dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/map"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="119dp"
+        android:layout_marginLeft="119dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="119dp"
+        android:layout_marginRight="119dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/userText"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        map:fontFamily="@font/alegreya_sans_sc_medium" />
+
+</RelativeLayout>

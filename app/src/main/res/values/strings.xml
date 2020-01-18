@@ -5,5 +5,10 @@
     <string name="title_activity_second_page">SecondPage</string>
     <string name="driverButton">Driver</string>
     <string name="userButton">User</string>
+    <string name="whoareyou">I am a\.\.\.</string>
+
+    <string name="userText">User\'s Location</string>
+
+
 
 </resources>
