@@ -18,8 +18,12 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.GroundOverlay;
+import com.google.android.gms.maps.model.GroundOverlayOptions;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -56,6 +60,23 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         marker = new MarkerOptions().position(new LatLng(0,0))
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker));
+
+        // Add Ground Overlay around Bryn Mawr
+//        BitmapDescriptor overlayImage = BitmapDescriptorFactory.fromResource(R.drawable.green);
+//        Double ne_lat = 40.024611;
+//        Double ne_lng = -75.313333;
+//        LatLng ne = new LatLng(ne_lat, ne_lng); //admissions building
+//
+//        Double sw_lat = 40.030153;
+//        Double sw_lng = -75.314273;
+//        LatLng sw = new LatLng(sw_lat, sw_lng); //park science building
+//
+//        LatLngBounds overlayBounds = new LatLngBounds(sw, ne);
+//
+//        GroundOverlay groundOverlay = mMap.addGroundOverlay(new GroundOverlayOptions()
+//                .image(overlayImage)
+//                .positionFromBounds(overlayBounds)
+//                .transparency(0.5f));
 
 
         locationRequest = LocationRequest.create();
