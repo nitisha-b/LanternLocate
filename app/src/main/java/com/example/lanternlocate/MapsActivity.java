@@ -33,6 +33,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 
+import com.pubnub.api.PNConfiguration;
+import com.pubnub.api.PubNub;
+import com.google.gson.JsonObject;
+import com.pubnub.api.models.consumer.PNPublishResult;
+import com.pubnub.api.callbacks.PNCallback;
+import com.pubnub.api.models.consumer.PNStatus
+
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;

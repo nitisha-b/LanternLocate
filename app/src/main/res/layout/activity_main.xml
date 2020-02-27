@@ -29,7 +29,7 @@
         app:srcCompat="@drawable/background" />
 
     <Button
-        android:id="@+id/userButton"
+        android:id="@+id/passengerButton"
         style="@android:style/Widget.Holo.Button"
         android:layout_width="147dp"
         android:layout_height="64dp"
@@ -62,8 +62,8 @@
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
         android:layout_marginBottom="52dp"
-        android:layout_toStartOf="@+id/userButton"
-        android:layout_toLeftOf="@+id/userButton"
+        android:layout_toStartOf="@+id/passengerButton"
+        android:layout_toLeftOf="@+id/passengerButton"
         android:clickable="true"
         android:onClick="onDriver"
         android:text="@string/driverButton"
