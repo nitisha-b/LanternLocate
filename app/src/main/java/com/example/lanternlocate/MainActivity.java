@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, DriverActivity.class));
+               startActivity(new Intent(MainActivity.this, DriverActivity.class));
             }
         });
 
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        private void initPubnub() {
+        private void initPubnub(){
             PNConfiguration pnConfiguration = new PNConfiguration();
             pnConfiguration.setSubscribeKey(PUBNUB_SUBSCRIBE_KEY);
             pnConfiguration.setPublishKey(PUBNUB_PUBLISH_KEY);
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        public void checkPermission() {
+        public void checkPermission(){
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                     ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
             )
